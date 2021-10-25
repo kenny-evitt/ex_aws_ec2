@@ -2615,6 +2615,42 @@ defmodule ExAws.EC2 do
   end
 
 
+  # TODO: Add doc:
+  # TODO: Add spec:
+  def describe_security_group_rules(opts \\ []) do
+   build_request(opts, :describe_security_group_rules)
+  end
+ 
+  @type modify_security_group_rules_opts :: [
+    dry_run: boolean
+  ]
+ 
+  @type security_group_rule :: any # TODO:
+ 
+ 
+  @doc """
+  Modifies the rules of a security group
+ 
+  See:
+ 
+  - [ModifySecurityGroupRules - Amazon Elastic Compute Cloud](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifySecurityGroupRules.html)
+  """
+  @spec modify_security_group_rules(
+    group_id             :: binary,
+    security_group_rules :: [security_group_rule, ...],
+    opts                 :: modify_security_group_rules_opts
+  ) :: ExAws.Operation.Query.t
+  def modify_security_group_rules(group_id, security_group_rules, opts \\ []) do
+    [
+      {"GroupId",             group_id            },
+      {:security_group_rules, security_group_rules}
+    ]
+    ++ opts
+    |> build_request(:modify_security_group_rules)
+  end
+
+
+
   ####################
   # Helper Functions #
   ####################
@@ -2727,6 +2763,14 @@ defmodule ExAws.EC2 do
 
   defp format_param({:restorable_by_ids, restorable_by_ids}) do
     restorable_by_ids  |> format(prefix: "RestorableBy")
+  end
+
+  defp format_param({:security_group_rules, rules}) do
+    rules
+    |> Enum.map(
+      fn {rule_id, rule} -> [security_group_rule_id: rule_id, security_group_rule: rule] end
+    )
+    |> format(prefix: "SecurityGroupRule")
   end
 
   defp format_param({:snapshot_ids, snapshot_ids}) do
