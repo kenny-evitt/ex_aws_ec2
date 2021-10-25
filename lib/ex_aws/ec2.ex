@@ -1195,49 +1195,49 @@ defmodule ExAws.EC2 do
     max_results: integer,
     next_token: binary,
     volume_ids: [binary, ...]
- ]
- @spec describe_volume_status() :: ExAws.Operation.Query.t
- @spec describe_volume_status(opts :: describe_volume_status_opts) :: ExAws.Operation.Query.t
- def describe_volume_status(opts \\ []) do
-   opts |> build_request(:describe_volume_status)
- end
+  ]
+  @spec describe_volume_status() :: ExAws.Operation.Query.t
+  @spec describe_volume_status(opts :: describe_volume_status_opts) :: ExAws.Operation.Query.t
+  def describe_volume_status(opts \\ []) do
+    opts |> build_request(:describe_volume_status)
+  end
 
 
- @doc """
- Modifies a volume attribute.
-
- Doc: http://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyVolumeAttribute.html
-
- ## Examples:
-
-       iex> ExAws.EC2.modify_volume_attribute("vol-123456")
-       %ExAws.Operation.Query{action: :modify_volume_attribute,
-       params: %{
-         "Action" => "ModifyVolumeAttribute",
-         "VolumeId" => "vol-123456",
-         "Version" => "2016-11-15"
-       }, parser: &ExAws.Utils.identity/2, path: "/", service: :ec2}
-
-       iex> ExAws.EC2.modify_volume_attribute("vol-123456", auto_enable_io: [value: true])
-       %ExAws.Operation.Query{action: :modify_volume_attribute,
-       params: %{
-         "Action" => "ModifyVolumeAttribute",
-         "VolumeId" => "vol-123456",
-         "AutoEnableIO.Value" => true,
-         "Version" => "2016-11-15"
-       }, parser: &ExAws.Utils.identity/2, path: "/", service: :ec2}
-
- """
- @type modify_volume_attribute_opts :: [
-    auto_enable_io: attribute_boolean_value,
-    dry_run: boolean
- ]
- @spec modify_volume_attribute(volume_id :: binary) :: ExAws.Operation.Query.t
- @spec modify_volume_attribute(volume_id :: binary, opts :: modify_volume_attribute_opts) :: ExAws.Operation.Query.t
- def modify_volume_attribute(volume_id, opts \\ []) do
-   [ {"VolumeId", volume_id} | opts ]
-   |> build_request(:modify_volume_attribute)
- end
+  @doc """
+  Modifies a volume attribute.
+ 
+  Doc: http://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyVolumeAttribute.html
+ 
+  ## Examples:
+ 
+        iex> ExAws.EC2.modify_volume_attribute("vol-123456")
+        %ExAws.Operation.Query{action: :modify_volume_attribute,
+        params: %{
+          "Action" => "ModifyVolumeAttribute",
+          "VolumeId" => "vol-123456",
+          "Version" => "2016-11-15"
+        }, parser: &ExAws.Utils.identity/2, path: "/", service: :ec2}
+ 
+        iex> ExAws.EC2.modify_volume_attribute("vol-123456", auto_enable_io: [value: true])
+        %ExAws.Operation.Query{action: :modify_volume_attribute,
+        params: %{
+          "Action" => "ModifyVolumeAttribute",
+          "VolumeId" => "vol-123456",
+          "AutoEnableIO.Value" => true,
+          "Version" => "2016-11-15"
+        }, parser: &ExAws.Utils.identity/2, path: "/", service: :ec2}
+ 
+  """
+  @type modify_volume_attribute_opts :: [
+     auto_enable_io: attribute_boolean_value,
+     dry_run: boolean
+  ]
+  @spec modify_volume_attribute(volume_id :: binary) :: ExAws.Operation.Query.t
+  @spec modify_volume_attribute(volume_id :: binary, opts :: modify_volume_attribute_opts) :: ExAws.Operation.Query.t
+  def modify_volume_attribute(volume_id, opts \\ []) do
+    [ {"VolumeId", volume_id} | opts ]
+    |> build_request(:modify_volume_attribute)
+  end
 
 
   @doc """
@@ -2569,50 +2569,50 @@ defmodule ExAws.EC2 do
    source_security_group_owner_id: binary,
    to_port: integer
   ]
- @spec revoke_security_group_ingress() :: ExAws.Operation.Query.t
- @spec revoke_security_group_ingress(opts :: revoke_security_group_ingress_opts) :: ExAws.Operation.Query.t
- def revoke_security_group_ingress(opts \\ []) do
-    opts |> build_request(:revoke_security_group_ingress)
- end
+  @spec revoke_security_group_ingress() :: ExAws.Operation.Query.t
+  @spec revoke_security_group_ingress(opts :: revoke_security_group_ingress_opts) :: ExAws.Operation.Query.t
+  def revoke_security_group_ingress(opts \\ []) do
+     opts |> build_request(:revoke_security_group_ingress)
+  end
 
- @doc """
- Removes one or more egress rules from a security group for EC2-VPC.
-
- Doc: http://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RevokeSecurityGroupEgress.html
-
- ## Examples:
-
-        iex> ExAws.EC2.revoke_security_group_egress("sg-123456", [
-        ...>  cidr_ip: "10.0.0.2", dry_run: true, from_port: 22, to_port: 22
-        ...> ])
-        %ExAws.Operation.Query{action: :revoke_security_group_egress,
-        params: %{
-          "Action" => "RevokeSecurityGroupEgress",
-          "GroupId" => "sg-123456",
-          "CidrIp" => "10.0.0.2",
-          "DryRun" => true,
-          "FromPort" => 22,
-          "ToPort" => 22,
-          "Version" => "2016-11-15"
-        }, parser: &ExAws.Utils.identity/2, path: "/", service: :ec2}
- """
-
- @type revoke_security_group_egress_opts :: [
-   cidr_ip: binary,
-   dry_run: boolean,
-   from_port: integer,
-   ip_permissions: [ip_permission, ...],
-   ip_protocol: binary,
-   source_security_group_name: binary,
-   source_security_group_owner_id: binary,
-   to_port: integer
- ]
- @spec revoke_security_group_egress(group_id :: binary) :: ExAws.Operation.Query.t
- @spec revoke_security_group_egress(group_id :: binary, opts :: revoke_security_group_egress_opts) :: ExAws.Operation.Query.t
- def revoke_security_group_egress(group_id, opts \\ []) do
-   [ {"GroupId", group_id} | opts ]
-   |> build_request(:revoke_security_group_egress)
- end
+  @doc """
+  Removes one or more egress rules from a security group for EC2-VPC.
+ 
+  Doc: http://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RevokeSecurityGroupEgress.html
+ 
+  ## Examples:
+ 
+         iex> ExAws.EC2.revoke_security_group_egress("sg-123456", [
+         ...>  cidr_ip: "10.0.0.2", dry_run: true, from_port: 22, to_port: 22
+         ...> ])
+         %ExAws.Operation.Query{action: :revoke_security_group_egress,
+         params: %{
+           "Action" => "RevokeSecurityGroupEgress",
+           "GroupId" => "sg-123456",
+           "CidrIp" => "10.0.0.2",
+           "DryRun" => true,
+           "FromPort" => 22,
+           "ToPort" => 22,
+           "Version" => "2016-11-15"
+         }, parser: &ExAws.Utils.identity/2, path: "/", service: :ec2}
+  """
+ 
+  @type revoke_security_group_egress_opts :: [
+    cidr_ip: binary,
+    dry_run: boolean,
+    from_port: integer,
+    ip_permissions: [ip_permission, ...],
+    ip_protocol: binary,
+    source_security_group_name: binary,
+    source_security_group_owner_id: binary,
+    to_port: integer
+  ]
+  @spec revoke_security_group_egress(group_id :: binary) :: ExAws.Operation.Query.t
+  @spec revoke_security_group_egress(group_id :: binary, opts :: revoke_security_group_egress_opts) :: ExAws.Operation.Query.t
+  def revoke_security_group_egress(group_id, opts \\ []) do
+    [ {"GroupId", group_id} | opts ]
+    |> build_request(:revoke_security_group_egress)
+  end
 
 
   ####################
