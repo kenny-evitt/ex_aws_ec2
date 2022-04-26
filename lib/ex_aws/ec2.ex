@@ -2650,6 +2650,13 @@ defmodule ExAws.EC2 do
   end
 
 
+  @doc """
+  Returns the AWC EC2 API version targeted
+  """
+  @spec api_version :: String.t
+  def api_version, do: @version
+
+
 
   ####################
   # Helper Functions #
