@@ -52,6 +52,8 @@ defmodule ExAws.EC2.Mixfile do
       { :poison,    ">= 0.0.0", only: [:dev, :test] },
 
       ex_aws(),
+
+      { :certifi, "~> 2.12.0", only: [:dev, :test], override: true }
     ]
   end
 
