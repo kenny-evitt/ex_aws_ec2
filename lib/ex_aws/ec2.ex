@@ -2780,6 +2780,10 @@ defmodule ExAws.EC2 do
     |> format(prefix: "SecurityGroupRule")
   end
 
+  defp format_param({:security_group_ids, security_group_ids}) do
+    security_group_ids |> format(prefix: "SecurityGroupId")
+  end
+
   defp format_param({:snapshot_ids, snapshot_ids}) do
     snapshot_ids |> format(prefix: "SnapshotId")
   end
